@@ -13,7 +13,7 @@ import os.path
 import ImageFilter
 import mimetypes
 
-_cache = dict()
+_cache = dict() # This is a toy cache handler, replace it with better stuff
 
 
 @route('/')
