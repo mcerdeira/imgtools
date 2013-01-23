@@ -5,7 +5,7 @@ __version__ = "0.01"
 __date__ = "$Date: 4/2/2012$"
 __license__ = "GPL v3"
 
-from bottle import run, route, error, request, response, get, post, request, debug, static_file, url, BaseResponse, HTTPResponse
+from bottle import run, route, error, request, response, get, post, request, debug, static_file, url, HTTPResponse
 from PIL import Image
 import urllib, cStringIO
 import uuid
