@@ -64,10 +64,6 @@ def main(img_url):
 def error_hdl(error):
     return "<b>Ups, this is bad...</b>"
 
-
-def get_img_id():
-    return str(uuid.uuid1())
-
 # IMAGE PROCESS FUNCTIONS
 
 def img_bw(url, img):
