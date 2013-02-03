@@ -9,7 +9,7 @@ from bottle import run, route, error, request, response, get, post, request, deb
 from PIL import Image
 import urllib, cStringIO
 import uuid
-import os.path
+import urlparse, os
 import ImageFilter
 import mimetypes
 
@@ -66,6 +66,11 @@ def error_hdl(error):
 
 # IMAGE PROCESS FUNCTIONS
 
+def img_process(actions, img):
+    # Recursively requested transformations
+    # return result via return save_tmp(url, img2)
+    pass
+
 def img_bw(url, img):
     img2 = img.convert('L')
     return save_tmp(url, img2)
@@ -116,14 +121,27 @@ def img_sharpen(url, img):
 
 def save_tmp(url, img2):
     headers = dict()
+    #Extract extension
+    ext = set_ext(url)
+    #Guess mime type and encoding
     mimetype, encoding = mimetypes.guess_type(url)
     if mimetype: headers['Content-Type'] = mimetype
     if encoding: headers['Content-Encoding'] = encoding
-    response_file = cStringIO.StringIO()
-    img2.save(response_file, 'png') # png for now, maybe take the extension from original file
+    #Build response HEADER
+    response_file = cStringIO.StringIO()    
+    img2.save(response_file, ext)
     response_file.seek(0)
     return HTTPResponse(response_file, **headers)
 
+def set_ext(url):
+    path = urlparse.urlparse(url).path
+    ext = os.path.splitext(path)[1].lower().replace('.', '')
+    if ext == '' or ext == None:
+        ext = 'png'
+    if ext == 'jpg':
+        ext = 'jpeg'
+    return ext
+    
 def start_server():    
     debug(True)
     run(host='localhost', port=8000)
