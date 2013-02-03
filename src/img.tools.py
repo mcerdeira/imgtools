@@ -74,64 +74,40 @@ def img_process(actions, url, img):
     return save_tmp(url, img)
 
 def img_bw(url, img):
-    img2 = img.convert('L')
-    return img2
-    #return save_tmp(url, img2)
+    return img.convert('L')    
 
 def img_rotate(url, img, degrees):
-    img2 = img.rotate(degrees)
-    return img2
-    #return save_tmp(url, img2)
+    return img.rotate(degrees)
 
 def img_blur(url, img):
-    img2 = img.filter(ImageFilter.BLUR)
-    return img2
-    #return save_tmp(url, img2)
+    return img.filter(ImageFilter.BLUR)
 
 def img_detail(url, img):
-    img2 = img.filter(ImageFilter.DETAIL)
-    return img2
-    #return save_tmp(url, img2)
+    return img.filter(ImageFilter.DETAIL)
 
 def img_contour(url, img):
-    img2 = img.filter(ImageFilter.CONTOUR)
-    return img2
-    #return save_tmp(url, img2)
+    return img.filter(ImageFilter.CONTOUR)
 
 def img_edge_enhance(url, img):
-    img2 = img.filter(ImageFilter.EDGE_ENHANCE)
-    return img2
-    #return save_tmp(url, img2)
+    return img.filter(ImageFilter.EDGE_ENHANCE)
 
 def img_edge_enhance_more(url, img):
-    img2 = img.filter(ImageFilter.EDGE_ENHANCE_MORE)
-    return img2
-    #return save_tmp(url, img2)
+    return img.filter(ImageFilter.EDGE_ENHANCE_MORE)
 
 def img_emboss(url, img):
-    img2 = img.filter(ImageFilter.EMBOSS)
-    return img2
-    #return save_tmp(url, img2)
+    return img.filter(ImageFilter.EMBOSS)
 
 def img_find_edges(url, img):
-    img2 = img.filter(ImageFilter.FIND_EDGES)
-    return img2
-    #return save_tmp(url, img2)
+    return img.filter(ImageFilter.FIND_EDGES)
 
 def img_smooth(url, img):
-    img2 = img.filter(ImageFilter.SMOOTH)
-    return img2
-    #return save_tmp(url, img2)
+    return img.filter(ImageFilter.SMOOTH)
 
 def img_smooth_more(url, img):
-    img2 = img.filter(ImageFilter.SMOOTH_MORE)
-    return img2
-    #return save_tmp(url, img2)
+    return img.filter(ImageFilter.SMOOTH_MORE)
 
 def img_sharpen(url, img):
-    img2 = img.filter(ImageFilter.SHARPEN)
-    return img2
-    #return save_tmp(url, img2)
+    return img.filter(ImageFilter.SHARPEN)
 
 def save_tmp(url, img2):
     headers = dict()
