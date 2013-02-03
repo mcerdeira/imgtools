@@ -30,35 +30,9 @@ def main(img_url):
         _cache[url] = urllib.urlopen(url).read()
         file = cStringIO.StringIO(_cache[url])
                 
-    img = Image.open(file)
-    #Todo: use callbacks to concatenate image processing funcions
-    for a in request.query.getall("action"):
-        if "(" in a and ")" in a: # action with parameters
-            a = a.replace("(", "|").replace(")", "|").split("|")
-            if a[0] == "rotate":
-                return img_rotate(url, img, float(a[1]))
-        elif a == "black_white":
-            return img_bw(url, img)
-        elif a == "blur":
-            return img_blur(url, img)
-        elif a == "detail":
-            return img_detail(url, img)
-        elif a == "contour":
-            return img_contour(url, img)
-        elif a == "edge_enhance":
-            return img_edge_enhance(url, img)
-        elif a == "edge_enhance_more":
-            return img_edge_enhance_more(url, img)
-        elif a == "emboss":
-            return img_emboss(url, img)
-        elif a == "find_edges":
-            return img_find_edges(url, img)
-        elif a == "smooth":
-            return img_smooth(url, img)
-        elif a == "smooth_more":
-            return img_smooth_more(url, img)
-        elif a == "sharpen":
-            return img_sharpen(url, img)
+    img = Image.open(file)    
+    return img_process(request.query.getall("action"), url, img)
+    
 
 @error(404)
 def error_hdl(error):
@@ -66,58 +40,98 @@ def error_hdl(error):
 
 # IMAGE PROCESS FUNCTIONS
 
-def img_process(actions, img):
-    # Recursively requested transformations
-    # return result via return save_tmp(url, img2)
-    pass
+def img_process(actions, url, img):
+    # Process all the requested transformations
+    for a in actions:
+        if "(" in a and ")" in a: # action with parameters
+            a = a.replace("(", "|").replace(")", "|").split("|")
+            if a[0] == "rotate":
+                img = img_rotate(url, img, float(a[1]))
+        elif a == "black_white":
+            img = img_bw(url, img)
+        elif a == "blur":
+            img = img_blur(url, img)
+        elif a == "detail":
+            img = img_detail(url, img)
+        elif a == "contour":
+            img = img_contour(url, img)
+        elif a == "edge_enhance":
+            img = img_edge_enhance(url, img)
+        elif a == "edge_enhance_more":
+            img = img_edge_enhance_more(url, img)
+        elif a == "emboss":
+            img = img_emboss(url, img)
+        elif a == "find_edges":
+            img = img_find_edges(url, img)
+        elif a == "smooth":
+            img = img_smooth(url, img)
+        elif a == "smooth_more":
+            img = img_smooth_more(url, img)
+        elif a == "sharpen":
+            img = img_sharpen(url, img)
+    
+    #Return final result
+    return save_tmp(url, img)
 
 def img_bw(url, img):
     img2 = img.convert('L')
-    return save_tmp(url, img2)
+    return img2
+    #return save_tmp(url, img2)
 
 def img_rotate(url, img, degrees):
     img2 = img.rotate(degrees)
-    return save_tmp(url, img2)
+    return img2
+    #return save_tmp(url, img2)
 
 def img_blur(url, img):
     img2 = img.filter(ImageFilter.BLUR)
-    return save_tmp(url, img2)
+    return img2
+    #return save_tmp(url, img2)
 
 def img_detail(url, img):
     img2 = img.filter(ImageFilter.DETAIL)
-    return save_tmp(url, img2)
+    return img2
+    #return save_tmp(url, img2)
 
 def img_contour(url, img):
     img2 = img.filter(ImageFilter.CONTOUR)
-    return save_tmp(url, img2)
+    return img2
+    #return save_tmp(url, img2)
 
 def img_edge_enhance(url, img):
     img2 = img.filter(ImageFilter.EDGE_ENHANCE)
-    return save_tmp(url, img2)
+    return img2
+    #return save_tmp(url, img2)
 
 def img_edge_enhance_more(url, img):
     img2 = img.filter(ImageFilter.EDGE_ENHANCE_MORE)
-    return save_tmp(url, img2)
+    return img2
+    #return save_tmp(url, img2)
 
 def img_emboss(url, img):
     img2 = img.filter(ImageFilter.EMBOSS)
-    return save_tmp(url, img2)
+    return img2
+    #return save_tmp(url, img2)
 
 def img_find_edges(url, img):
     img2 = img.filter(ImageFilter.FIND_EDGES)
-    return save_tmp(url, img2)
+    return img2
+    #return save_tmp(url, img2)
 
 def img_smooth(url, img):
     img2 = img.filter(ImageFilter.SMOOTH)
-    return save_tmp(url, img2)
+    return img2
+    #return save_tmp(url, img2)
 
 def img_smooth_more(url, img):
     img2 = img.filter(ImageFilter.SMOOTH_MORE)
-    return save_tmp(url, img2)
+    return img2
+    #return save_tmp(url, img2)
 
 def img_sharpen(url, img):
     img2 = img.filter(ImageFilter.SHARPEN)
-    return save_tmp(url, img2)
+    return img2
+    #return save_tmp(url, img2)
 
 def save_tmp(url, img2):
     headers = dict()
