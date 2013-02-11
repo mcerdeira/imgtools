@@ -26,16 +26,27 @@ Current supported commands
 ==========================
 
 black_white:         Example: action=black_white
+
 blur				 Example: action=blur			
+
 detail				 Example: action=detail
+
 contour				 Example: action=contour
+
 edge_enhance		 Example: action=edge_enhance
+
 edge_enhance_more    Example: action=edge_enhance_more
+
 emboss				 Example: action=emboss
+
 find_edges			 Example: action=find_edges
+
 rotate(degrees)	     Example: action=rotate(45)
+
 smooth				 Example: action=smooth
+
 smooth_more			 Example: action=smooth_more
+
 sharpen              Example: action=sharpen
 
 
