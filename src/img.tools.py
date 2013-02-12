@@ -1,11 +1,11 @@
 # -*- coding: utf-8 -*-
 
 __author__ = "mRt (martincerdeira@gmail.com)"
-__version__ = "0.01"
+__version__ = "0.03"
 __date__ = "$Date: 4/2/2012$"
 __license__ = "GPL v3"
 
-from bottle import run, route, error, request, response, get, post, request, debug, static_file, url, HTTPResponse
+from bottle import run, route, error, request, response, get, post, request, template, debug, static_file, url, HTTPResponse
 from PIL import Image
 import urllib, cStringIO
 import uuid
@@ -15,15 +15,45 @@ import mimetypes
 
 _cache = dict() # This is a toy cache handler, replace it with better stuff
 
-
 @route('/')
 def default():
-    return "Oops"
-
+    return template('main', result = '', original = '', actions = _actions.keys())
+    
+    
+@post('/submited/')
+def submited():     
+    action = action_string(request.forms)
+    url = request.forms.get('url')
+    web = request.url.replace('/submited', '')  
+    result = web + url + action
+    return template('main', result = result, original = url, actions = _actions.keys())
+        
 
 @route('<img_url:path>')
 def main(img_url):
     url = img_url[1:]
+    action = request.query.getall("action")
+    return handle_request(url, action)
+    
+
+@error(404)
+def error_hdl(error):
+    return "<b>Ups, this is bad...</b>"
+    
+
+def action_string(web_actions):
+    retval = ""
+    print web_actions
+    for i in _actions.keys():
+        if web_actions.get(i) != None:
+            if retval != "":
+                retval += "&action=" + i
+            else:
+                retval += "?action=" + i
+            
+    return retval
+    
+def handle_request(url, action):    
     try:
         file = cStringIO.StringIO(_cache[url])
     except KeyError:
@@ -31,17 +61,13 @@ def main(img_url):
         file = cStringIO.StringIO(_cache[url])
                 
     img = Image.open(file)    
-    return img_process(request.query.getall("action"), url, img)
-    
-
-@error(404)
-def error_hdl(error):
-    return "<b>Ups, this is bad...</b>"
+    return img_process(action, url, img)    
 
 # IMAGE PROCESS FUNCTIONS
 
 def img_process(actions, url, img):
     # Process all the requested transformations
+    #TODO: use _actions instead...  
     for a in actions:
         if "(" in a and ")" in a: # action with parameters
             a = a.replace("(", "|").replace(")", "|").split("|")
@@ -131,6 +157,21 @@ def set_ext(url):
     if ext == 'jpg':
         ext = 'jpeg'
     return ext
-
+    
+    
+_actions = {
+    'rotate' : img_rotate,
+    'black_white' : img_bw,
+    'blur' : img_blur,
+    'detail' : img_detail,
+    'contour' : img_contour,
+    'edge_enhance' : img_edge_enhance,
+    'edge_enhance_more' : img_edge_enhance_more,
+    'emboss' : img_emboss,
+    'find_edges' : img_find_edges,
+    'smooth' : img_smooth,
+    'smooth_more' : img_smooth_more,
+    'sharpen' : img_sharpen
+}
     
 run(host="0.0.0.0", port=int(os.environ.get("PORT", 5000))) #This is needed to work on Heroku (extracted from bottle recipes http://bottlepy.org/docs/dev/recipes.html)
