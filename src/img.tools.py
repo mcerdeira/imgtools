@@ -19,6 +19,9 @@ _cache = dict() # This is a toy cache handler, replace it with better stuff
 def default():
     return template('main', result = '', original = '', actions = _actions.keys())
     
+@route('/css/:filename')
+def css_file(filename):
+    return static_file(filename, root=os.getcwd() + '/css/')
     
 @post('/submited/')
 def submited():     
@@ -143,6 +146,7 @@ def save_tmp(url, img2):
     mimetype, encoding = mimetypes.guess_type(url)
     if mimetype: headers['Content-Type'] = mimetype
     if encoding: headers['Content-Encoding'] = encoding
+    headers['Cache-control'] = 'public; max-age=28800'
     #Build response HEADER
     response_file = cStringIO.StringIO()    
     img2.save(response_file, ext)
