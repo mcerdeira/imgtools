@@ -7,11 +7,16 @@
 <link rel="stylesheet" type="text/css" href="/css/main.css"/>
 </head>
 
-<body>   
+<body>
    <div id="wrapper">
-         <div id="header">
-		       <h1>GliTch Playground (beta)</h1>			   
-		 </div>
+		 <br>
+         <h1>GliTch Playground (beta)</h1>
+		
+		 <br>
+		 <br>
+		 <br>
+		 <br>
+		 
 		 <div id="content">		       
 			   	<form method="post" action="/submited/">		
 					Image Url: <input type="text" name="url" style="width: 500px"/><br><br>			

@@ -23,6 +23,10 @@ def default():
 def css_file(filename):
     return static_file(filename, root=os.getcwd() + '/css/')
     
+@route('/img/:filename')
+def img_file(filename):
+    return static_file(filename, root=os.getcwd() + '/img/')
+    
 @post('/submited/')
 def submited():     
     action = action_string(request.forms)
@@ -137,6 +141,23 @@ def img_smooth_more(url, img):
 
 def img_sharpen(url, img):
     return img.filter(ImageFilter.SHARPEN)
+    
+def img_write(url, img):
+    pass
+    # def draw_text(text, size, angle=0, fill=None):
+    # font = ImageFont.truetype(
+        # 'path/to/font.ttf', size
+    # )
+    # size = font.getsize(text) # Returns the width and height of the given text, as a 2-tuple.
+    # im = Image.new('RGBA', size, (0, 0, 0, 0)) # Create a blank image with the given size
+    # draw = ImageDraw.Draw(im)
+    # draw.text((0, 0), text, font=font, fill=fill) #Draw text
+    # return im.rotate(angle, expand=True)
+ 
+# img = draw_text('Google', 30, 45, (82, 124, 178)) 
+    
+    # http://stackoverflow.com/questions/7698231/python-pil-draw-multiline-text-on-image 
+    
 
 def save_tmp(url, img2):
     headers = dict()
@@ -175,7 +196,8 @@ _actions = {
     'find_edges' : img_find_edges,
     'smooth' : img_smooth,
     'smooth_more' : img_smooth_more,
-    'sharpen' : img_sharpen
+    'sharpen' : img_sharpen,
+    'write' : img_write
 }
     
 run(host="0.0.0.0", port=int(os.environ.get("PORT", 5000))) #This is needed to work on Heroku (extracted from bottle recipes http://bottlepy.org/docs/dev/recipes.html)
