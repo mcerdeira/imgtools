@@ -29,6 +29,8 @@
 					<br>
 					
 					<input type="submit" value="Submit" /> <br><br>
+					
+					Wanna try it? <a href="https://github.com/mcerdeira/imgtools/blob/master/README.md" TARGET="_new">Please read me.</a>
 											
 					%if result != '':
 						Result: <br><br>
