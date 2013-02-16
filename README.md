@@ -1,7 +1,7 @@
-imgtools
+Glitch
 ========
 
-Image tools (still working on a better name) is an image transformation service.
+Glitch is an image transformation service.
 
 Its uses PIL for image processing, and bottle for webservice dispatching.
 
