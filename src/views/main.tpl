@@ -12,14 +12,11 @@
 		 <br>
          <h1>GliTch Playground (beta)</h1>
 		
-		 <br>
-		 <br>
-		 <br>
-		 <br>
+		 <br>		 
 		 
 		 <div id="content">		       
 			   	<form method="post" action="/submited/">		
-					Image Url: <input type="text" name="url" style="width: 500px"/><br><br>			
+					Image Url: <input type="text" name="url" value="{{original}}" style="width: 500px"/><br><br>			
 					Effects: <br><br>
 					
 					%for i in range(0, len(actions)-1):
@@ -29,18 +26,24 @@
 					<br>
 					
 					<input type="submit" value="Submit" /> <br><br>
-					
-					Wanna try it? <a href="https://github.com/mcerdeira/imgtools/blob/master/README.md" TARGET="_new">Please read me.</a>
-											
 					%if result != '':
-						Result: <br><br>
-						<img src='{{result}}'><br>				
-						Original: <br><br>
+						Image Link:<br/><br/>
+						<textarea rows="5" name="link" style="width: 520px; height: 84px;">{{result}}</textarea><br/><br/>			
+						
+						Embed:<br/><br/>
+						<textarea rows="5" name="link" style="width: 520px; height: 84px;"><img src='{{result}}'></textarea><br/><br/>		
+						
+						Result: <br/><br/>
+						<img src='{{result}}'><br/>				
+						Original: <br/><br/>
 						<img src='{{original}}'>
+					%else:
+						Wanna try it? <a href="https://github.com/mcerdeira/imgtools/blob/master/README.md" TARGET="_new">Read the docs </a>
+						or maybe you wanna <a href="mailto:martincerdeira@gmail.com">Contact Us!</a>
 					%end
 				</form>			   
-		 </div>		 
-		 <div id="footer">		       
+		 </div>
+		 <div id="footer">
 			   GliTch is powered by: Python - PIL - Bottle - Heroku 			   
 	     </div>		 
    </div>
