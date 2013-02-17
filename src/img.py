@@ -17,7 +17,7 @@ _cache = dict() # This is a toy cache handler, replace it with better stuff
 
 @route('/')
 def default():
-    return template('main', result = '', original = '', actions = _actions.keys())
+    return template('main', result = '', original = '', actions = sorted(_actions.keys()))
     
 @route('/css/:filename')
 def css_file(filename):
@@ -33,7 +33,7 @@ def submited():
     url = request.forms.get('url')
     web = request.url.replace('/submited', '')  
     result = web + url + action
-    return template('main', result = result, original = url, actions = _actions.keys())
+    return template('main', result = result, original = url, actions = sorted(_actions.keys()))
         
 
 @route('<img_url:path>')
@@ -199,5 +199,7 @@ _actions = {
     'sharpen' : img_sharpen,
     'write' : img_write
 }
+
+
     
 run(host="0.0.0.0", port=int(os.environ.get("PORT", 5000))) #This is needed to work on Heroku (extracted from bottle recipes http://bottlepy.org/docs/dev/recipes.html)

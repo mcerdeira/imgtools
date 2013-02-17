@@ -30,14 +30,21 @@ body {
  width: 1000px;
 }
 #header {
- width: inherit;
- color: #000000;
+ width: inherit; 
  padding: 10px;
- border: 1px solid #ccc;
- height: 100px;
- margin: 10px 0px 0px 0px;
- background: #FA5882;
+ -moz-border-radius: 1em 4em 1em 4em;
+ border-radius: 1em 4em 1em 4em;
+ height: 50px; 
+ background: #031424;
 }
+#small {
+ width: 260px; 
+ padding: 10px;
+ border-radius: 15px;
+ height: 60px; 
+ background: #031424;
+}
+
 #content { 
  width: inherit;
  color: #fff;

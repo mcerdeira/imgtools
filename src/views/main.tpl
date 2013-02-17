@@ -8,10 +8,14 @@
 </head>
 
 <body>
-   <div id="wrapper">
+   <div id="wrapper">		 
+		 <div id="header">
+			<div id="small">
+				<img src="img/logo.png"><br/>
+			</div>			
+         </div>
+
 		 <br>
-         <h1>GliTch Playground (beta)</h1>
-		
 		 <br>		 
 		 
 		 <div id="content">		       
