@@ -3,6 +3,8 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
 <meta http-equiv="Cache-control" content="public">
+<meta name="description" content="Glitch image transformation playground">
+<meta name="keywords" content="image transformation glitch gleetch PIL python">
 <title>GliTch Playground (beta)</title>
 <link rel="stylesheet" type="text/css" href="/css/main.css"/>
 </head>
@@ -11,7 +13,7 @@
    <div id="wrapper">		 
 		 <div id="header">
 			<div id="small">
-				<img src="img/logo.png"><br/>
+				<img src="/img/logo.png"><br/>
 			</div>			
          </div>
 

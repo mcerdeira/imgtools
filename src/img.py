@@ -7,6 +7,7 @@ __license__ = "GPL v3"
 
 from bottle import run, route, error, request, response, get, post, request, template, debug, static_file, url, HTTPResponse
 from PIL import Image
+from random import shuffle
 import urllib, cStringIO
 import uuid
 import urlparse, os
@@ -49,8 +50,7 @@ def error_hdl(error):
     
 
 def action_string(web_actions):
-    retval = ""
-    print web_actions
+    retval = "" 
     for i in _actions.keys():
         if web_actions.get(i) != None:
             if retval != "":
@@ -102,6 +102,8 @@ def img_process(actions, url, img):
             img = img_smooth_more(url, img)
         elif a == "sharpen":
             img = img_sharpen(url, img)
+        elif a == "shred":
+            img = img_shred(url, img)
     
     #Return final result
     return save_tmp(url, img)
@@ -141,6 +143,24 @@ def img_smooth_more(url, img):
 
 def img_sharpen(url, img):
     return img.filter(ImageFilter.SHARPEN)
+    
+def img_shred(url, img):    
+    SHREDS = 10 
+    shredded = Image.new("RGBA", img.size)
+    width, height = img.size
+    shred_width = width/SHREDS
+    sequence = range(0, SHREDS)
+    shuffle(sequence)
+
+    for i, shred_index in enumerate(sequence):
+        shred_x1, shred_y1 = shred_width * shred_index, 0
+        shred_x2, shred_y2 = shred_x1 + shred_width, height
+        region =img.crop((shred_x1, shred_y1, shred_x2, shred_y2))
+        shredded.paste(region, (shred_width * i, 0))
+
+    return shredded
+    
+    
     
 def img_write(url, img):
     pass
@@ -197,7 +217,8 @@ _actions = {
     'smooth' : img_smooth,
     'smooth_more' : img_smooth_more,
     'sharpen' : img_sharpen,
-    'write' : img_write
+    'write' : img_write,
+    'shred' : img_shred
 }
 
 
