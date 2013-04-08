@@ -49,6 +49,8 @@ smooth_more			 Example: action=smooth_more
 
 sharpen              Example: action=sharpen
 
+shred  			 Example: action=shred
+
 
 Also, you can combine more than one filter, like this:
 
