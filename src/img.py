@@ -195,7 +195,7 @@ def img_getred(url, img):
     return Image.merge('RGB',(r,r,r))    
 
 def img_getgreen(url, img):
-	rimg = img.convert("RGB")
+    rimg = img.convert("RGB")
     r,g,b = img.split()
     return Image.merge('RGB',(g,g,g))    
     
