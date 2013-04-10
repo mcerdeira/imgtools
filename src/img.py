@@ -7,6 +7,7 @@ __license__ = "GPL v3"
 
 from bottle import run, route, error, request, response, get, post, request, template, debug, static_file, url, HTTPResponse
 from PIL import Image
+from PIL import ImageOps
 from random import shuffle
 import urllib, cStringIO
 import uuid
@@ -104,7 +105,19 @@ def img_process(actions, url, img):
             img = img_sharpen(url, img)
         elif a == "shred":
             img = img_shred(url, img)
-    
+        elif a == "addborder":
+            img = img_addborder(url, img)
+        elif a == 'light':
+            img = img_light(url, img)
+        elif a == 'getred':
+            img = img_getred(url, img)
+        elif a == 'getgreen':
+            img = img_getgreen(url, img)
+        elif a == 'getblue':
+            img = img_getblue(url, img)
+        elif a == 'invertrgb':
+            img = img_invertrgb(url, img)
+            
     #Return final result
     return save_tmp(url, img)
 
@@ -160,8 +173,42 @@ def img_shred(url, img):
 
     return shredded
     
+def img_addborder(url, img):
+    #TODO, replace hardcoded fill and border for parameters
+    r = ImageOps.expand(img, border=5, fill='red')
+    return r
     
+def img_light(url, img):
+    tilesize=50
+    WIDTH, HEIGHT = img.size
+    for x in xrange(0, WIDTH, tilesize):
+        for y in xrange(0, HEIGHT, tilesize):
+            br = int(255 * (1 - x / float(WIDTH) * y /float(HEIGHT)))
+            tile = Image.new("RGBA", (tilesize, tilesize), (255,255,255,128))
+            img.paste((br,br,br), (x, y, x + tilesize, y + tilesize), mask=tile)
     
+    return img
+    
+def img_getred(url, img):    
+    rimg = img.convert("RGB")
+    r,g,b = img.split()
+    return Image.merge('RGB',(r,r,r))    
+
+def img_getgreen(url, img):
+	rimg = img.convert("RGB")
+    r,g,b = img.split()
+    return Image.merge('RGB',(g,g,g))    
+    
+def img_getblue(url, img):
+    rimg = img.convert("RGB")
+    r,g,b = rimg.split()
+    return Image.merge('RGB',(b,b,b))    
+    
+def img_invertrgb(url, img):    
+    rimg = img.convert("RGB")
+    r,g,b = rimg.split()
+    return Image.merge('RGB',(b,g,r))     
+
 def img_write(url, img):
     pass
     # def draw_text(text, size, angle=0, fill=None):
@@ -218,7 +265,13 @@ _actions = {
     'smooth_more' : img_smooth_more,
     'sharpen' : img_sharpen,
     'write' : img_write,
-    'shred' : img_shred
+    'shred' : img_shred,
+    'addborder': img_addborder,
+    'light' : img_light,
+    'getred' : img_getred,
+    'getgreen' : img_getgreen,
+    'getblue' : img_getblue,
+    'invertrgb' : img_invertrgb
 }
 
 
