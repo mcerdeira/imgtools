@@ -27,29 +27,41 @@ Current supported commands
 
 black_white:         Example: action=black_white
 
-blur				 Example: action=blur			
+blur                 Example: action=blur           
 
-detail				 Example: action=detail
+detail               Example: action=detail
 
-contour				 Example: action=contour
+contour              Example: action=contour
 
-edge_enhance		 Example: action=edge_enhance
+edge_enhance         Example: action=edge_enhance
 
 edge_enhance_more    Example: action=edge_enhance_more
 
-emboss				 Example: action=emboss
+emboss               Example: action=emboss
 
-find_edges			 Example: action=find_edges
+find_edges           Example: action=find_edges
 
-rotate(degrees)	     Example: action=rotate(45)
+rotate(degrees)      Example: action=rotate(45)
 
-smooth				 Example: action=smooth
+smooth               Example: action=smooth
 
-smooth_more			 Example: action=smooth_more
+smooth_more          Example: action=smooth_more
 
 sharpen              Example: action=sharpen
 
-shred  			 Example: action=shred
+shred                Example: action=shred
+
+addborder            Example: action=addborder
+
+light                Example: action=light
+
+getred               Example: action=getred
+
+getgreen             Example: action=getgreen
+
+getblue              Example: action=getblue
+
+invertrgb            Example: action=invertrgb
 
 
 Also, you can combine more than one filter, like this:
