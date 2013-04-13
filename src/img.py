@@ -117,6 +117,8 @@ def img_process(actions, url, img):
             img = img_getblue(url, img)
         elif a == 'invertrgb':
             img = img_invertrgb(url, img)
+        elif a == 'sepia':
+            img = img_sepia(url, img)
             
     #Return final result
     return save_tmp(url, img)
@@ -202,13 +204,22 @@ def img_getgreen(url, img):
 def img_getblue(url, img):
     rimg = img.convert("RGB")
     r,g,b = rimg.split()
-    return Image.merge('RGB',(b,b,b))    
+    return Image.merge('RGB',(b,b,b))
     
 def img_invertrgb(url, img):    
     rimg = img.convert("RGB")
     r,g,b = rimg.split()
-    return Image.merge('RGB',(b,g,r))     
-
+    return Image.merge('RGB',(b,g,r))
+    
+def img_sepia(url, img):    
+    sepia = make_linear_ramp((255, 240, 192)) #Sepia ramp    
+    orig_mode = img.mode # Save the original mode   
+    # convert to grayscale    
+    img = img.convert("L")    
+    # apply sepia palette
+    img.putpalette(sepia)
+    return img.convert(orig_mode)
+    
 def img_write(url, img):
     pass
     # def draw_text(text, size, angle=0, fill=None):
@@ -250,6 +261,12 @@ def set_ext(url):
         ext = 'jpeg'
     return ext
     
+def make_linear_ramp(white):
+    ramp = []
+    r, g, b = white
+    for i in range(255):
+        ramp.extend((r*i/255, g*i/255, b*i/255))
+    return ramp 
     
 _actions = {
     'rotate' : img_rotate,
@@ -271,7 +288,8 @@ _actions = {
     'getred' : img_getred,
     'getgreen' : img_getgreen,
     'getblue' : img_getblue,
-    'invertrgb' : img_invertrgb
+    'invertrgb' : img_invertrgb,
+    'sepia' : img_sepia
 }
 
 

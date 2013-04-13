@@ -63,6 +63,8 @@ getblue              Example: action=getblue
 
 invertrgb            Example: action=invertrgb
 
+sepia				 Example: action=sepia
+
 
 Also, you can combine more than one filter, like this:
 
